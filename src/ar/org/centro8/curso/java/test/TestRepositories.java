@@ -8,6 +8,7 @@ import ar.org.centro8.curso.java.entidades.Rebaja;
 import ar.org.centro8.curso.java.entidades.Ropa;
 import ar.org.centro8.curso.java.enums.Color;
 import ar.org.centro8.curso.java.enums.Estacion;
+import ar.org.centro8.curso.java.enums.Genero;
 import ar.org.centro8.curso.java.enums.GeneroRopa;
 import ar.org.centro8.curso.java.enums.Promocion;
 import ar.org.centro8.curso.java.enums.Talle;
@@ -29,10 +30,28 @@ public class TestRepositories {
         List<Cliente> l =c.getLikeDni(30001546);
         System.out.print(l);
        
-  System.out.println("....1....");
+  System.out.println("....Cliente....");
         I_ClienteRepository cl=new ClienteRepository(Connector.getConnection());
         List<Cliente> f =cl.getLikeApellido("Martinez");
         System.out.println(f);
+        
+        System.out.println("....save......");
+        Cliente clie= new Cliente("Elisa", "sol", 43456789 , 44445555,"eliSol@gmail.com", Genero.f);
+        cl.save(clie);
+        System.out.println(clie);
+        
+        System.out.println("...update....");
+        Cliente cliese= new Cliente("Elisa Ramires", "soledad",43456789, 44445555,"eliSol@gmail.com", Genero.f);
+        cl.update(cliese);
+        System.out.println(cliese);
+        
+        System.out.println("....remove....");
+        Cliente clies= new Cliente("Elisa", "sol", 43456789 , 3456789,"eliSol@gmail.com", Genero.f);
+        cl.remove(clies);
+        System.out.println(clies);
+        
+        List<Cliente> ccl= cl.getAll();
+        System.out.println(ccl);
         
 System.out.println("....2....");
         I_ClienteRepository cr=new ClienteRepository(Connector.getConnection());
@@ -48,45 +67,62 @@ System.out.println("...Id_cliente.....");
         I_FacturaRepository frr=new FacturaRepository(Connector.getConnection());
         List<Factura> t=frr.getLikeId_cliente(4);
         System.out.println(t);
-
+        
 System.out.println("....Id_rebaja...."); 
         I_RebajaRepository o=new RebajaRepository(Connector.getConnection());
-        List<Rebaja>fat=o.getLikeId(2);
+        List<Rebaja>fat = o.getLikeId(2);
         System.out.println(fat);
+  
         
+ // tener cargada la base de datos sino al estar vacia dara error       
 //System.out.println("....Detalle...."); 
 //      I_DetalleRepository crw=new DetalleRepository(Connector.getConnection());
-//      List<Detalle> nw =crw.getAll();
+//      List<Detalle> nw = crw.getAll();
 //      System.out.println(nw);
       
-//System.out.println("........"); 
-//      I_RebajaRepository w=new RebajaRepository(Connector.getConnection());
-//      List<Rebaja> nwy =w.getAll();
-//      System.out.println(nwy);
-//      
-//System.out.println("....lista ropas...."); 
-//      I_RopaRepository x=new RopaRepository(Connector.getConnection());
-//      List<Ropa> xx =x.getAll();
-//      System.out.println(xx);
-//    
-//System.out.println("....Camisa...."); 
-//      I_RopaRepository qtq=new RopaRepository(Connector.getConnection());
-//      List<Ropa> hqt =qtq.getLikeRopaD("camisa");
-//        System.out.println(hqt);
-//        
-//System.out.println("...UPDATe....."); 
-//        I_RopaRepository ve=new RopaRepository(Connector.getConnection());
-//        Ropa ropa=new Ropa(10,"campera",Talle.l,Color.amarillo,GeneroRopa.unisex,Estacion.primavera_verano,4,4500);
-//        ve.update(ropa);
-//        System.out.println(ropa);
-//        
-//System.out.println("....2da...."); 
-//      I_RebajaRepository ty=new RebajaRepository(Connector.getConnection());
-//      Rebaja rebaja=new Rebaja(8,"colores",Promocion.ninguna,25);
-//      ty.save(rebaja);
-//      System.out.println(rebaja);
       
-//    Rebaja rebaja= new Rebaja(8,"colores", Promocion.descuento_efectivo, 25);
- 
+System.out.println("....lista ropas...."); 
+      I_RopaRepository x=new RopaRepository(Connector.getConnection());
+      List<Ropa> xx =x.getAll();
+      System.out.println(xx);
+    
+System.out.println("....Camisa...."); 
+      I_RopaRepository qtq=new RopaRepository(Connector.getConnection());
+      List<Ropa> hqt =qtq.getLikeRopaD("camisa");
+        System.out.println(hqt);
+        
+System.out.println("...UPDATe ROpa....."); 
+        I_RopaRepository ve=new RopaRepository(Connector.getConnection());
+        Ropa ropa=new Ropa(10,"campera",Talle.l,Color.amarillo,GeneroRopa.unisex,Estacion.primavera_verano,4,4500);
+        ve.update(ropa);
+        System.out.println(ropa);
+        
+         List<Ropa> ro =ve.getLikeRopaD("campera");
+         System.out.println(ro);
+        
+         System.out.println("....remove......");
+         Ropa ropaa=new Ropa(10,"campera",Talle.l,Color.amarillo,GeneroRopa.unisex,Estacion.primavera_verano,4,4500);
+        ve.remove(ropaa);
+        
+        List<Ropa> ropp =ve.getAll();
+        System.out.println(ropp);
+        
+System.out.println("....save Rebaja...."); 
+      I_RebajaRepository ty=new RebajaRepository(Connector.getConnection());
+      Rebaja rebaja=new Rebaja(8,"colores",Promocion.ninguna,25);
+      ty.save(rebaja);
+      System.out.println(rebaja);
+      
+       List<Rebaja> re= ty.getLikeDescripcion("colores");
+        System.out.println(re);
+      
+      System.out.println("...........remove...........");
+      Rebaja rebajas=new Rebaja(8, "colores", Promocion.ninguna, 25);
+      ty.remove(rebajas);
+      
+      List<Rebaja> res= ty.getAll();
+        System.out.println(res);
+      
+        
  }
 }
